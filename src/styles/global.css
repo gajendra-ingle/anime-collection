@@ -106,25 +106,36 @@ body::before {
   background: var(--green);
   border-radius: 50%;
   box-shadow: 0 0 12px var(--green-glow);
-  animation: pulse-dot 2.5s ease-in-out infinite;
+  animation: pulse-dot 5s ease-in-out infinite;
   flex-shrink: 0;
 }
 
-@keyframes pulse-dot {
+/* @keyframes pulse-dot {
 
   0%,
   100% {
     box-shadow: 0 0 10px var(--green-glow);
-    transform: scale(1);
+    transform: scale(0.5);
   }
 
   50% {
     box-shadow: 0 0 22px var(--green-glow), 0 0 40px rgba(155, 93, 229, .2);
     transform: scale(1.15);
   }
-}
+} */
 
-.count-badge {
+
+@keyframes pulse-dot {
+  0%, 50%, 100% {
+    opacity: 1;
+  }
+  25%, 75% {
+    opacity: 0;
+  }
+} 
+
+
+/* .count-badge {
   background: var(--purple-soft);
   border: 1px solid rgba(155, 93, 229, 0.3);
   color: var(--accent);
@@ -134,7 +145,7 @@ body::before {
   font-weight: 500;
   letter-spacing: 0.04em;
   transition: var(--transition);
-}
+} */
 
 .hero {
   position: relative;

@@ -5,13 +5,13 @@ export default function Header({ count, loading }) {
         <span className="logo-text">私のコレクション</span>
         <span className="logo-dot" aria-hidden="true" />
       </a>
-      <span
+      {/* <span
         className="count-badge"
         aria-live="polite"
         aria-label={`${count} titles in collection`}
       >
         {loading ? '…' : count === 0 ? '—' : count}
-      </span>
+      </span> */}
     </header>
   )
 }

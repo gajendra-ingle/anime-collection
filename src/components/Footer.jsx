@@ -1,7 +1,7 @@
 export default function Footer() {
   return (
     <footer>
-      Made by{' '}
+      <span style={{color: 'whitesmoke'}}>Made by</span>{' '}
       <a href="https://github.com/gajendra-ingle" target="_blank" rel="noreferrer">
         Gajendra
       </a>{' '}

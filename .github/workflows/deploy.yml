@@ -1,48 +1,39 @@
-name: Deploy → Vercel
+name: Deploy to Vercel
 
 on:
   push:
-    branches: [main]
+    branches:
+      - main
   workflow_dispatch:
 
 jobs:
   deploy:
-    name: Build & Deploy
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout
+      - name: Checkout Repository
         uses: actions/checkout@v4
 
-      - name: Setup Node.js 20
+      - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '20'
-          cache: 'npm'
+          node-version: 20
+          cache: npm
 
-      - name: Install dependencies
+      - name: Install Dependencies
         run: npm ci
 
-      - name: Build
+      - name: Build Project
         env:
-          VITE_ATLAS_APP_ID:      ${{ secrets.VITE_ATLAS_APP_ID }}
-          VITE_ATLAS_API_KEY:     ${{ secrets.VITE_ATLAS_API_KEY }}
-          VITE_ATLAS_DATA_SOURCE: ${{ secrets.VITE_ATLAS_DATA_SOURCE }}
-          VITE_ATLAS_DATABASE:    ${{ secrets.VITE_ATLAS_DATABASE }}
-          VITE_ATLAS_COLLECTION:  ${{ secrets.VITE_ATLAS_COLLECTION }}
+          VITE_SUPABASE_URL: ${{ secrets.VITE_SUPABASE_URL }}
+          VITE_SUPABASE_ANON_KEY: ${{ secrets.VITE_SUPABASE_ANON_KEY }}
         run: npm run build
 
-      - name: Deploy to Vercel
+      - name: Deploy to Vercel Production
         uses: amondnet/vercel-action@v25
         with:
-          vercel-token:      ${{ secrets.VERCEL_TOKEN }}
-          vercel-org-id:     ${{ secrets.VERCEL_ORG_ID }}
+          vercel-token: ${{ secrets.VERCEL_TOKEN }}
+          vercel-org-id: ${{ secrets.VERCEL_ORG_ID }}
           vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID }}
-          vercel-args:       '--prod'
+          vercel-args: --prod
           working-directory: .
-
-      - name: Summary
-        run: |
-          echo "✅ Deployed to Vercel production"
-          echo "   Commit : ${{ github.sha }}"
-          echo "   Actor  : ${{ github.actor }}"
